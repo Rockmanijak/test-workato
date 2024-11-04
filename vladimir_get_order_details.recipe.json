@@ -1,0 +1,191 @@
+{
+  "name": "Vladimir - Get Order Details",
+  "description": "",
+  "version": 13,
+  "private": false,
+  "concurrency": 1,
+  "code": {
+    "number": 0,
+    "provider": "clock",
+    "name": "scheduled_event",
+    "as": "aab872e3",
+    "title": null,
+    "description": "<span class=\"provider\">Trigger</span> every 5 minutes",
+    "keyword": "trigger",
+    "input": {
+      "time_unit": "minutes",
+      "trigger_every": "5"
+    },
+    "extended_input_schema": [
+      {
+        "control_type": "integer",
+        "default": "5",
+        "enforce_template_mode": true,
+        "extends_schema": true,
+        "hint": "Define repeating schedule. Enter whole numbers only.\n                        This field can be set to a minimum of 5 minutes.",
+        "label": "Trigger every",
+        "name": "trigger_every",
+        "optional": false,
+        "suffix": {
+          "text": "minutes"
+        },
+        "type": "string"
+      },
+      {
+        "control_type": "select",
+        "hint": "Select the timezone to use. Leave it blank to use <b>{{authUser.account_timezone}}</b>",
+        "label": "Timezone",
+        "name": "timezone",
+        "optional": true,
+        "pick_list": "timezone_id_global_pick_list",
+        "pick_list_connection_less": true,
+        "type": "string"
+      },
+      {
+        "control_type": "date_time",
+        "enforce_template_mode": true,
+        "extends_schema": true,
+        "hint": "Set date and time to start or leave blank to start immediately. <b>Once recipe has been run or tested, value cannot be changed.</b>",
+        "label": "Start after",
+        "name": "start_after",
+        "optional": true,
+        "parse_output": "date_time_conversion",
+        "since_field": true,
+        "type": "date_time",
+        "ignore_timezone": true,
+        "render_input": "date_time_conversion"
+      }
+    ],
+    "block": [
+      {
+        "number": 1,
+        "keyword": "try",
+        "input": {
+        },
+        "block": [
+          {
+            "number": 2,
+            "provider": "xi_connector_connector_3470203_1728481768",
+            "name": "search_order_v7",
+            "as": "2fec2271",
+            "keyword": "action",
+            "input": {
+              "pageSize": "25",
+              "pageNumber": "1",
+              "customerOrderNumber": "USTESTABU"
+            },
+            "visible_config_fields": [
+              "pageSize",
+              "pageNumber",
+              "customerOrderNumber"
+            ],
+            "uuid": "5ab478d2-52d9-4d13-b5b1-1428e252e39f"
+          },
+          {
+            "number": 3,
+            "as": "7a31baf8",
+            "keyword": "catch",
+            "input": {
+              "max_retry_count": "0",
+              "retry_interval": "2"
+            },
+            "block": [
+              {
+                "number": 4,
+                "provider": "logger",
+                "name": "log_message",
+                "as": "9cfe13cf",
+                "title": null,
+                "description": "Log <span class=\"provider\">message</span> to <span class=\"provider\">Job report</span>",
+                "keyword": "action",
+                "input": {
+                  "user_logs_enabled": "false",
+                  "message": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"catch\",\"line\":\"7a31baf8\",\"path\":[\"message\"]}')}"
+                },
+                "extended_input_schema": [
+                  {
+                    "control_type": "switch",
+                    "default": false,
+                    "disable_formula": true,
+                    "extends_schema": true,
+                    "hint": "                Send a copy of the message to Workato logs.\n                <a href=\"https://docs.workato.com/features/logging-service.html\" target=\"_blank\" class=\"ng-scope\">\n                  Learn more\n                </a>\n",
+                    "label": "Send to Workato log service",
+                    "name": "user_logs_enabled",
+                    "optional": true,
+                    "type": "string"
+                  }
+                ],
+                "uuid": "2d8bba25-13e3-4745-b902-0c27753ab9ad"
+              }
+            ],
+            "uuid": "89535bfc-b995-42b6-920d-c67b346607d8"
+          }
+        ],
+        "uuid": "70b4e1fc-2a87-4d0e-ab28-c3d1d542e641"
+      },
+      {
+        "number": 5,
+        "provider": "logger",
+        "name": "log_message",
+        "as": "96ad5873",
+        "title": null,
+        "description": "Log <span class=\"provider\">message</span> to <span class=\"provider\">Job report</span>",
+        "keyword": "action",
+        "input": {
+          "user_logs_enabled": "false",
+          "message": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"xi_connector_connector_3470203_1728481768\",\"line\":\"2fec2271\",\"path\":[\"orders\",{\"path_element_type\":\"current_item\"},\"ingramOrderNumber\"]}')}"
+        },
+        "extended_input_schema": [
+          {
+            "control_type": "switch",
+            "default": false,
+            "disable_formula": true,
+            "extends_schema": true,
+            "hint": "                Send a copy of the message to Workato logs.\n                <a href=\"https://docs.workato.com/features/logging-service.html\" target=\"_blank\" class=\"ng-scope\">\n                  Learn more\n                </a>\n",
+            "label": "Send to Workato log service",
+            "name": "user_logs_enabled",
+            "optional": true,
+            "type": "string"
+          }
+        ],
+        "uuid": "75fdb826-504e-44ca-90b4-b96ca90a3b91"
+      },
+      {
+        "number": 6,
+        "as": "c4d3ad21",
+        "keyword": "stop",
+        "input": {
+          "stop_with_error": "false"
+        },
+        "uuid": "1d3c4f54-0ebc-4b93-ad39-195aa82cfacd"
+      }
+    ],
+    "uuid": "4d9f52b2-c187-45eb-a414-41c754390047",
+    "unfinished": false
+  },
+  "config": [
+    {
+      "keyword": "application",
+      "provider": "clock",
+      "skip_validation": false,
+      "account_id": null
+    },
+    {
+      "keyword": "application",
+      "provider": "xi_connector_connector_3470203_1728481768",
+      "skip_validation": false,
+      "account_id": {
+        "zip_name": "vladimir_xi_connector.connection.json",
+        "name": "Vladimir - XI Connector",
+        "folder": "",
+        "custom": true
+      }
+    },
+    {
+      "keyword": "application",
+      "provider": "logger",
+      "skip_validation": false,
+      "account_id": null
+    }
+  ]
+}

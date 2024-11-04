@@ -1,0 +1,6 @@
+{
+  "name": "Vladimir - SalesForce",
+  "provider": "salesforce",
+  "secure_gateway_tunnel_name": null,
+  "root_folder": false
+}
