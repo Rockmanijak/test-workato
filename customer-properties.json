@@ -1,0 +1,24 @@
+{
+  "config": [
+    {
+      "name": "cicd.test.scheduler",
+      "value": "scheduler value from github repo",
+      "type": "Property"
+    },
+    {
+      "name": "cicd.test.function",
+      "value": "function value from github repo",
+      "type": "Property"
+    },
+    {
+      "name": "CICDT | CON | HTTP Connection",
+      "value": "\"input\":
+      \"API-TOKEN: secret\" }",
+    {
+      \"auth_type\":
+      \"headers\",
+      \"header_auth\":
+      "type": "Connection"
+    }
+  ]
+}
