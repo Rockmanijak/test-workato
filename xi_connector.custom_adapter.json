@@ -1,0 +1,8 @@
+{
+  "title": "XI Connector",
+  "description": null,
+  "logo_file_name": null,
+  "logo_content_type": null,
+  "version_no": 11,
+  "note": "BillToAddressID not mandatory"
+}
